@@ -20,7 +20,10 @@ use yii\bootstrap5\ActiveForm;
     <?= $form->field($model, 'email') ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Создать пользователя', ['class' => 'btn btn-outline-primary']) ?>
+        <div class="d-flex justify-content-between">
+            <?= Html::a('Авторизация', ['login'], ['class' => 'btn btn-outline-info']) ?>
+            <?= Html::submitButton('Создать пользователя', ['class' => 'btn btn-outline-primary']) ?>
+        </div>
     </div>
     <?php ActiveForm::end(); ?>
 
