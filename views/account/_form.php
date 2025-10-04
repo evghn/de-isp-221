@@ -16,7 +16,9 @@ use yii\bootstrap5\ActiveForm;
 
     <?= $form->field($model, 'course_id')->dropDownList(Course::getCourses(), ['prompt' => 'Выберете курс']) ?>
 
-    <?= $form->field($model, 'date_start')->textInput(['type' => 'date']) ?>
+    <div class="col-md-3 col-12">
+        <?= $form->field($model, 'date_start')->textInput(['type' => 'date', 'min' => date('Y-m-d')]) ?>
+    </div>
 
     <?= $form->field($model, 'pay_type_id')->dropDownList(PayType::getPayTypes(), ['prompt' => 'Выберете тип оплаты']) ?>
 
