@@ -45,17 +45,20 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
                 Yii::$app->user->isGuest
                     ? ['label' => 'Регистрация', 'url' => ['/site/register']]
                     : '',
-                !Yii::$app->user->isGuest
+                !Yii::$app->user->isGuest && Yii::$app->user->identity->isClient
                     ? ['label' => 'Личный кабинет', 'url' => ['/account']]
+                    : '',
+                !Yii::$app->user->isGuest && Yii::$app->user->identity->isAdmin
+                    ? ['label' => 'Панель администратора', 'url' => ['/admin']]
                     : '',
 
 
                 Yii::$app->user->isGuest
                     ? ['label' => 'Вход', 'url' => ['/site/login']]
                     : '<li class="nav-item">'
-                    . Html::beginForm(['/site/Выход'])
+                    . Html::beginForm(['/site/logout'])
                     . Html::submitButton(
-                        'Logout (' . Yii::$app->user->identity->login . ')',
+                        'Выход (' . Yii::$app->user->identity->login . ')',
                         ['class' => 'nav-link btn btn-link logout']
                     )
                     . Html::endForm()

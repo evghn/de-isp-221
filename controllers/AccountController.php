@@ -38,6 +38,22 @@ class AccountController extends Controller
      *
      * @return string
      */
+    public function beforeAction($action)
+    {
+        if (Yii::$app->user->isGuest || Yii::$app->user->identity->isAdmin) {
+            return $this->redirect('/');
+        }
+
+        if (!parent::beforeAction($action)) {
+            return false;
+        }
+
+        // other custom code here
+
+        return true; // or false to not run the action
+    }
+
+
     public function actionIndex()
     {
         $dataProvider = new ActiveDataProvider([
@@ -58,6 +74,7 @@ class AccountController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
+
 
     /**
      * Displays a single Application model.
