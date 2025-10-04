@@ -21,9 +21,15 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?= Html::a('Назад', ['index'], ['class' => 'btn btn-outline-info']) ?>
-        <? # Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) 
-        ?>
 
+        <?= $model->staus_id === Status::getStausId('new')
+            ? Html::a('Идет обучение', ['change-status', 'id' => $model->id, 'status' => 'study'], ['class' => 'btn btn-outline-primary', 'data-method' => 'post', 'data-pjax' => 0])
+            : ''
+        ?>
+        <?= $model->staus_id === Status::getStausId('study')
+            ? Html::a('Обучение завершено', ['change-status', 'id' => $model->id, 'status' => 'final'], ['class' => 'btn btn-outline-success', 'data-method' => 'post', 'data-pjax' => 0])
+            : ''
+        ?>
     </p>
 
     <?= DetailView::widget([

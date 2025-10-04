@@ -2,6 +2,7 @@
 
 use app\models\Application;
 use yii\bootstrap5\Html;
+use yii\bootstrap5\LinkPager;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
 use yii\widgets\ListView;
@@ -20,6 +21,10 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'itemOptions' => ['class' => 'item'],
         'itemView' => 'item',
+        'pager' => [
+            'class' => LinkPager::class
+        ],
+
     ]) ?>
 
 

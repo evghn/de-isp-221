@@ -57,6 +57,16 @@ use yii\bootstrap5\Html;
         </div>
 
         <div class="d-flex justify-content-end gap-3">
+
+            <?= $model->staus_id === Status::getStausId('new')
+                ? Html::a('Идет обучение', ['change-status', 'id' => $model->id, 'status' => 'study'], ['class' => 'btn btn-outline-info', 'data-method' => 'post', 'data-pjax' => 0])
+                : ''
+            ?>
+            <?= $model->staus_id === Status::getStausId('study')
+                ? Html::a('Обучение завершено', ['change-status', 'id' => $model->id, 'status' => 'final'], ['class' => 'btn btn-outline-success', 'data-method' => 'post', 'data-pjax' => 0])
+                : ''
+            ?>
+
             <?= Html::a('Просмотр', ['view', 'id' => $model->id], ['class' => 'btn btn-outline-primary']) ?>
         </div>
 

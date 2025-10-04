@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use app\models\Application;
 use app\models\AdminSearch;
+use app\models\Status;
 use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -76,27 +77,7 @@ class AdminController extends Controller
         ]);
     }
 
-    /**
-     * Creates a new Application model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return string|\yii\web\Response
-     */
-    public function actionCreate()
-    {
-        $model = new Application();
 
-        if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
-            }
-        } else {
-            $model->loadDefaultValues();
-        }
-
-        return $this->render('create', [
-            'model' => $model,
-        ]);
-    }
 
     /**
      * Updates an existing Application model.
@@ -105,17 +86,18 @@ class AdminController extends Controller
      * @return string|\yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($id)
+    public function actionChangeStatus($id, $status)
     {
         $model = $this->findModel($id);
 
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        }
+        if ($this->request->isPost) {
+            $model->staus_id = Status::getStausId($status);
 
-        return $this->render('update', [
-            'model' => $model,
-        ]);
+            if ($model->save()) {
+                Yii::$app->session->setFlash('success', 'Статус заявки успешно зменен.');
+                return $this->redirect(['index']);
+            }
+        }
     }
 
     /**

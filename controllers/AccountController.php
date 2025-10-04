@@ -58,10 +58,11 @@ class AccountController extends Controller
     {
         $dataProvider = new ActiveDataProvider([
             'query' => Application::find(),
-            /*
+
             'pagination' => [
-                'pageSize' => 50
+                'pageSize' => 5
             ],
+            /*
             'sort' => [
                 'defaultOrder' => [
                     'id' => SORT_DESC,
