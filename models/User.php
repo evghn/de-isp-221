@@ -138,4 +138,15 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return $this->getAuthKey() === $authKey;
     }
+
+    public function getIsAdmin(): bool
+    {
+        return $this->role === 1;
+    }
+
+
+    public function getIsClient(): bool
+    {
+        return $this->role === 0;
+    }
 }
