@@ -50,6 +50,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'staus_id',
                 'value' => Status::getStausTitle($model->staus_id),
             ],
+            [
+                'label' => 'Отзыв',
+                'format' => 'html',
+                'value' => $model?->feedback?->comment ? nl2br($model?->feedback?->comment) : '',
+                'visible' => (bool)$model?->feedback?->comment,
+            ],
+
         ],
     ]) ?>
 

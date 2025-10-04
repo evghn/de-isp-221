@@ -48,7 +48,11 @@ use yii\bootstrap5\Html;
         </div>
 
         <div class="d-flex justify-content-end gap-3">
-            <?= Html::a('Просмотр', ['view', 'id' => $model->id], ['class' => 'btn btn-outline-primary']) ?>
+            <?= $model->staus_id === Status::getStausId('final') && !$model?->feedback?->comment
+                ? Html::a('Написать отзыв', ['feedback', 'id' => $model->id], ['class' => 'btn btn-outline-primary'])
+                : ''
+            ?>
+            <?= Html::a('Просмотр', ['view', 'id' => $model->id], ['class' => 'btn btn-outline-info']) ?>
         </div>
 
 
