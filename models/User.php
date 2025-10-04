@@ -35,10 +35,26 @@ class User extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['login', 'password', 'full_name', 'phone', 'email', 'auth_key'], 'required'],
+            [['role'], 'default', 'value' => 0],
+            [['login', 'password', 'full_name', 'phone', 'email'], 'required'],
+            [['role'], 'integer'],
             [['login', 'password', 'full_name', 'email', 'auth_key'], 'string', 'max' => 255],
             [['phone'], 'string', 'max' => 15],
             [['login'], 'unique'],
+            [['login'], 'string', 'min' => 6],
+            [['password'], 'string', 'min' => 8],
+            [['login'], 'match', 'pattern' => '/^[a-z\d]+$/i', 'message' => 'латиница и цифры, не менее 6 символов'],
+            [['full_name'], 'match', 'pattern' => '/^[а-яё\s]+$/ui', 'message' => 'символы кириллицы и пробелы'],
+            [['phone'], 'match', 'pattern' => '/^8\([\d]{3}\)[\d]{3}(-[\d]{2}){2}$/', 'message' => 'телефон формат: 8(XXX)XXX-XX-XX)'],
+            ['email', 'email'],
+
+
+            // а-я  ё \s
+
+            // телефон (формат: 8(XXX)XXX-XX-XX)
+            // 8\([\d]{3}\)[\d]{3}-[\d]{2}-[\d]{2}
+            // 8\([\d]{3}\)[\d]{3}(-[\d]{2}){2}
+
         ];
     }
 
@@ -49,10 +65,10 @@ class User extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'login' => 'Login',
-            'password' => 'Password',
-            'full_name' => 'Full Name',
-            'phone' => 'Phone',
+            'login' => 'Логин',
+            'password' => 'Пароль',
+            'full_name' => 'ФИО',
+            'phone' => 'Телефон',
             'email' => 'Email',
             'auth_key' => 'Auth Key',
         ];
@@ -67,5 +83,4 @@ class User extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Application::class, ['user_id' => 'id']);
     }
-
 }
