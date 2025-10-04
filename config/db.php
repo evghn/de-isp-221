@@ -2,7 +2,10 @@
 
 return [
     'class' => 'yii\db\Connection',
-    'dsn' => 'mysql:host=localhost;dbname=yii2basic',
+    // для ДЭ в академии
+    // 'dsn' => 'mysql:host=localhost;dbname=courses_online',
+
+    'dsn' => 'mysql:host=MySQL-8.4;dbname=courses_online',
     'username' => 'root',
     'password' => '',
     'charset' => 'utf8',
