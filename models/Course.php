@@ -56,4 +56,21 @@ class Course extends \yii\db\ActiveRecord
         return $this->hasMany(Application::class, ['course_id' => 'id']);
     }
 
+
+    /* 
+    [
+        id   title
+        1 => 'курс 1',
+        2 => 'курс 2',
+        3 => 'курс 3',
+    ] */
+
+    public static function getCourses(): array
+    {
+        return static::find()
+            ->select('title')
+            ->indexBy('id')
+            ->column()
+        ;
+    }
 }

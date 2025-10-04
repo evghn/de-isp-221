@@ -42,10 +42,10 @@ class Application extends \yii\db\ActiveRecord
             [['user_id', 'course_id', 'date_start', 'pay_type_id', 'staus_id'], 'required'],
             [['user_id', 'course_id', 'pay_type_id', 'staus_id'], 'integer'],
             [['created_at', 'date_start'], 'safe'],
-            [['pay_type_id'], 'exist', 'skipOnError' => true, 'targetClass' => PayType::class, 'targetAttribute' => ['pay_type_id' => 'id']],
             [['staus_id'], 'exist', 'skipOnError' => true, 'targetClass' => Status::class, 'targetAttribute' => ['staus_id' => 'id']],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['user_id' => 'id']],
             [['course_id'], 'exist', 'skipOnError' => true, 'targetClass' => Course::class, 'targetAttribute' => ['course_id' => 'id']],
+            [['pay_type_id'], 'exist', 'skipOnError' => true, 'targetClass' => PayType::class, 'targetAttribute' => ['pay_type_id' => 'id']],
         ];
     }
 
@@ -55,13 +55,13 @@ class Application extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'user_id' => 'User ID',
-            'created_at' => 'Created At',
-            'course_id' => 'Course ID',
-            'date_start' => 'Date Start',
-            'pay_type_id' => 'Pay Type ID',
-            'staus_id' => 'Staus ID',
+            'id' => '№ заявки',
+            'user_id' => 'Клиент',
+            'created_at' => 'Дата/время создания',
+            'course_id' => 'Курс',
+            'date_start' => 'Дата начала',
+            'pay_type_id' => 'Тип оплаты',
+            'staus_id' => 'Статус',
         ];
     }
 
@@ -114,5 +114,4 @@ class Application extends \yii\db\ActiveRecord
     {
         return $this->hasOne(User::class, ['id' => 'user_id']);
     }
-
 }
