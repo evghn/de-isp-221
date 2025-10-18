@@ -58,7 +58,7 @@ class Status extends \yii\db\ActiveRecord
         return $this->hasMany(Application::class, ['status_id' => 'id']);
     }
 
-    public static function getStausId(string $alias): int
+    public static function getStatusId(string $alias): int
     {
         /*
             SELECT id
@@ -70,7 +70,7 @@ class Status extends \yii\db\ActiveRecord
         return static::findOne(['alias' => $alias])->id;
     }
 
-    public static function getStausTitle(int $id): string
+    public static function getStatusTitle(int $id): string
     {
         return static::findOne($id)->title;
     }

@@ -103,7 +103,7 @@ class AccountController extends Controller
         if ($this->request->isPost) {
             if ($model->load($this->request->post())) {
                 $model->user_id = Yii::$app->user->id;
-                $model->status_id = Status::getStausId('new');
+                $model->status_id = Status::getStatusId('new');
 
                 if ($model->save()) {
                     Yii::$app->session->setFlash('success', 'Завяка на курс создана.');

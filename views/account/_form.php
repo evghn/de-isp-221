@@ -6,6 +6,7 @@ use app\models\PayType;
 use yii\bootstrap5\Html;
 use yii\bootstrap5\ActiveForm;
 
+
 /** @var yii\web\View $this */
 /** @var app\models\Application $model */
 /** @var yii\widgets\ActiveForm $form */
@@ -16,6 +17,10 @@ use yii\bootstrap5\ActiveForm;
     <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($model, 'course_id')->dropDownList(Course::getCourses(), ['prompt' => 'Выберете курс']) ?>
+
+    <div class="alert alert-info alert-db d-none" role="alert">
+        Для прохождения курса необходимо наличие сервера базы данных у пользователя.
+    </div>
 
     <div class="row-cols-md-6 d-flex gap-3">
         <?= $form->field($model, 'date_start')->textInput(['type' => 'date']) ?>
@@ -33,3 +38,6 @@ use yii\bootstrap5\ActiveForm;
     <?php ActiveForm::end(); ?>
 
 </div>
+
+<?php
+$this->registerJsFile('/js/application.js', ['depends' => 'yii\web\YiiAsset']);

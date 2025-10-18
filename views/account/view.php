@@ -52,7 +52,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'attribute' => 'status_id',
-                'value' => Status::getStausTitle($model->status_id),
+                'value' => Status::getStatusTitle($model->status_id),
             ],
 
             [
