@@ -18,7 +18,11 @@ use yii\web\JqueryAsset;
     <?= $form->field($model, 'password')/* ->passwordInput() */ ?>
     <?= $form->field($model, 'password_repeat')/* ->passwordInput() */ ?>
     <?= $form->field($model, 'full_name') ?>
-    <?= $form->field($model, 'phone') ?>
+    <?= $form->field($model, 'phone')->widget(\yii\widgets\MaskedInput::class, [
+        'mask' => '8(999)999-99-99',
+    ]) ?>
+
+
     <?= $form->field($model, 'email') ?>
     <?= $form->field($model, 'rule')->checkbox() ?>
 
