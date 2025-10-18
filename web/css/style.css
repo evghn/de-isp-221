@@ -1,0 +1,54 @@
+@keyframes main {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+#main {
+  animation: main 1.5s ease 1;
+}
+
+.is-invalid {
+  animation: invalid 0.8s ease 1;
+}
+
+@keyframes invalid {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(-15px);
+  }
+}
+
+.invalid-feedback {
+  animation: feedback 0.8s ease 1;
+}
+
+@keyframes feedback {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(15px);
+  }
+}
+
+.is-valid {
+  animation: valid 0.8s ease 1;
+}
+
+@keyframes valid {
+  0%,
+  100% {
+    box-shadow: 0 0 1px #082a1a;
+  }
+  50% {
+    box-shadow: 0 0 10px green;
+  }
+}
