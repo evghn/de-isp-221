@@ -17,7 +17,7 @@ class AdminSearch extends Application
     public function rules()
     {
         return [
-            [['id', 'user_id', 'course_id', 'pay_type_id', 'staus_id'], 'integer'],
+            [['id', 'user_id', 'course_id', 'pay_type_id', 'status_id'], 'integer'],
             [['created_at', 'date_start'], 'safe'],
         ];
     }
@@ -68,7 +68,7 @@ class AdminSearch extends Application
             'course_id' => $this->course_id,
             'date_start' => $this->date_start,
             'pay_type_id' => $this->pay_type_id,
-            'staus_id' => $this->staus_id,
+            'status_id' => $this->status_id,
         ]);
 
         return $dataProvider;

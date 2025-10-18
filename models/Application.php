@@ -13,7 +13,7 @@ use Yii;
  * @property int $course_id
  * @property string $date_start
  * @property int $pay_type_id
- * @property int $staus_id
+ * @property int $status_id
  *
  * @property Course $course
  * @property Feedback $feedback
@@ -39,13 +39,17 @@ class Application extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'course_id', 'date_start', 'pay_type_id', 'staus_id'], 'required'],
-            [['user_id', 'course_id', 'pay_type_id', 'staus_id'], 'integer'],
-            [['created_at', 'date_start'], 'safe'],
-            [['staus_id'], 'exist', 'skipOnError' => true, 'targetClass' => Status::class, 'targetAttribute' => ['staus_id' => 'id']],
+            [['user_id', 'course_id', 'date_start', 'pay_type_id', 'status_id', 'date_start', 'time_start', 'master_id'], 'required'],
+            [['user_id', 'course_id', 'pay_type_id', 'status_id'], 'integer'],
+            [['created_at', 'date_start', 'time_start'], 'safe'],
+            [['status_id'], 'exist', 'skipOnError' => true, 'targetClass' => Status::class, 'targetAttribute' => ['status_id' => 'id']],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['user_id' => 'id']],
             [['course_id'], 'exist', 'skipOnError' => true, 'targetClass' => Course::class, 'targetAttribute' => ['course_id' => 'id']],
             [['pay_type_id'], 'exist', 'skipOnError' => true, 'targetClass' => PayType::class, 'targetAttribute' => ['pay_type_id' => 'id']],
+
+            [['date_start'], 'compare', 'compareValue' => date('Y-m-d', time() + 24 * 3600), 'operator' => '>=', "message" => "Дата должна быть не ранее следующей"],
+            [['master_id'], 'exist', 'skipOnError' => true, 'targetClass' => Master::class, 'targetAttribute' => ['master_id' => 'id']],
+            ['master_id', 'validateMaster']
         ];
     }
 
@@ -60,9 +64,30 @@ class Application extends \yii\db\ActiveRecord
             'created_at' => 'Дата/время создания',
             'course_id' => 'Курс',
             'date_start' => 'Дата начала',
+            'time_start' => 'Время начала',
             'pay_type_id' => 'Тип оплаты',
-            'staus_id' => 'Статус',
+            'status_id' => 'Статус',
+            'master_id' => 'Преподаватель курса',
         ];
+    }
+
+
+    public function validateMaster($attribute, $params)
+    {
+        if (!$this->hasErrors()) {
+
+            // найти заявки мастера на текущую дату и время в статусе <> "final"
+            $result = static::find()
+                ->where(['master_id' => $this->master_id])
+                ->andWhere(['date_start' => $this->date_start])
+                ->andWhere(['time_start' =>  $this->time_start . ":00"])
+                ->andWhere(['<>', 'status_id', Status::getStausId('final')])
+                ->count();
+
+            if ($result) {
+                $this->addError($attribute, 'На выбранную дату и время преподаватель занят.');
+            }
+        }
     }
 
     /**
@@ -100,9 +125,9 @@ class Application extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getStaus()
+    public function getStatus()
     {
-        return $this->hasOne(Status::class, ['id' => 'staus_id']);
+        return $this->hasOne(Status::class, ['id' => 'status_id']);
     }
 
     /**
@@ -113,5 +138,10 @@ class Application extends \yii\db\ActiveRecord
     public function getUser()
     {
         return $this->hasOne(User::class, ['id' => 'user_id']);
+    }
+
+    public function getMaster()
+    {
+        return $this->hasOne(Master::class, ['id' => 'master_id']);
     }
 }

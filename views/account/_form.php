@@ -1,6 +1,7 @@
 <?php
 
 use app\models\Course;
+use app\models\Master;
 use app\models\PayType;
 use yii\bootstrap5\Html;
 use yii\bootstrap5\ActiveForm;
@@ -16,11 +17,14 @@ use yii\bootstrap5\ActiveForm;
 
     <?= $form->field($model, 'course_id')->dropDownList(Course::getCourses(), ['prompt' => 'Выберете курс']) ?>
 
-    <div class="col-md-3 col-12">
-        <?= $form->field($model, 'date_start')->textInput(['type' => 'date', 'min' => date('Y-m-d')]) ?>
+    <div class="row-cols-md-6 d-flex gap-3">
+        <?= $form->field($model, 'date_start')->textInput(['type' => 'date']) ?>
+        <?= $form->field($model, 'time_start')->textInput(['type' => 'time']) ?>
     </div>
 
     <?= $form->field($model, 'pay_type_id')->dropDownList(PayType::getPayTypes(), ['prompt' => 'Выберете тип оплаты']) ?>
+
+    <?= $form->field($model, 'master_id')->dropDownList(Master::getMasters(), ['prompt' => 'Выберете преподавателя для курса']) ?>
 
     <div class="form-group">
         <?= Html::submitButton('Создать заявку', ['class' => 'btn btn-outline-success']) ?>

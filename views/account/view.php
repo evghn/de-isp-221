@@ -39,6 +39,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => Course::getCourses()[$model->course_id],
             ],
             [
+                'attribute' => 'master_id',
+                'value' => $model?->master?->name ?? "не найден",
+            ],
+            [
                 'attribute' => 'date_start',
                 'value' => Yii::$app->formatter->asDate($model->date_start, 'php:d.m.Y'),
             ],
@@ -47,9 +51,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => PayType::getPayTypes()[$model->pay_type_id],
             ],
             [
-                'attribute' => 'staus_id',
-                'value' => Status::getStausTitle($model->staus_id),
+                'attribute' => 'status_id',
+                'value' => Status::getStausTitle($model->status_id),
             ],
+
             [
                 'label' => 'Отзыв',
                 'format' => 'html',

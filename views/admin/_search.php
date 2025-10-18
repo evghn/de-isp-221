@@ -29,7 +29,7 @@ use yii\widgets\ActiveForm;
         <?= $form->field($model, 'pay_type_id')->dropDownList(PayType::getPayTypes(), ['prompt' => "Тип оплаты"])->label(false)  ?>
     </div>
     <div class="col-3">
-        <?= $form->field($model, 'staus_id')->dropDownList(Status::getStatuses(), ['prompt' => "Статус заявки"])->label(false) ?>
+        <?= $form->field($model, 'status_id')->dropDownList(Status::getStatuses(), ['prompt' => "Статус заявки"])->label(false) ?>
     </div>
 
     <div class="form-group d-flex gap-1">

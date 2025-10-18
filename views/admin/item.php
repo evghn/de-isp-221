@@ -52,17 +52,17 @@ use yii\bootstrap5\Html;
                 Статус:
             </div>
             <div class="fs-5">
-                <?= Status::getStausTitle($model->staus_id) ?>
+                <?= Status::getStausTitle($model->status_id) ?>
             </div>
         </div>
 
         <div class="d-flex justify-content-end gap-3">
 
-            <?= $model->staus_id === Status::getStausId('new')
+            <?= $model->status_id === Status::getStausId('new')
                 ? Html::a('Идет обучение', ['change-status', 'id' => $model->id, 'status' => 'study'], ['class' => 'btn btn-outline-info', 'data-method' => 'post', 'data-pjax' => 0])
                 : ''
             ?>
-            <?= $model->staus_id === Status::getStausId('study')
+            <?= $model->status_id === Status::getStausId('study')
                 ? Html::a('Обучение завершено', ['change-status', 'id' => $model->id, 'status' => 'final'], ['class' => 'btn btn-outline-success', 'data-method' => 'post', 'data-pjax' => 0])
                 : ''
             ?>

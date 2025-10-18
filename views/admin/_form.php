@@ -22,7 +22,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'pay_type_id')->textInput() ?>
 
-    <?= $form->field($model, 'staus_id')->textInput() ?>
+    <?= $form->field($model, 'status_id')->textInput() ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

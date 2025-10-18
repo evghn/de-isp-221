@@ -61,15 +61,15 @@ class AccountController extends Controller
             'query' => Application::find(),
 
             'pagination' => [
-                'pageSize' => 5
+                'pageSize' => 3
             ],
-            /*
+
             'sort' => [
                 'defaultOrder' => [
                     'id' => SORT_DESC,
                 ]
             ],
-            */
+
         ]);
 
         return $this->render('index', [
@@ -103,7 +103,7 @@ class AccountController extends Controller
         if ($this->request->isPost) {
             if ($model->load($this->request->post())) {
                 $model->user_id = Yii::$app->user->id;
-                $model->staus_id = Status::getStausId('new');
+                $model->status_id = Status::getStausId('new');
 
                 if ($model->save()) {
                     Yii::$app->session->setFlash('success', 'Завяка на курс создана.');

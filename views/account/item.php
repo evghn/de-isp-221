@@ -43,12 +43,12 @@ use yii\bootstrap5\Html;
                 Статус:
             </div>
             <div class="fs-5">
-                <?= Status::getStausTitle($model->staus_id) ?>
+                <?= Status::getStausTitle($model->status_id) ?>
             </div>
         </div>
 
         <div class="d-flex justify-content-end gap-3">
-            <?= $model->staus_id === Status::getStausId('final') && !$model?->feedback?->comment
+            <?= $model->status_id === Status::getStausId('final') && !$model?->feedback?->comment
                 ? Html::a('Написать отзыв', ['feedback', 'id' => $model->id], ['class' => 'btn btn-outline-primary'])
                 : ''
             ?>

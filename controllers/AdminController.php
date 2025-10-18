@@ -91,7 +91,7 @@ class AdminController extends Controller
         $model = $this->findModel($id);
 
         if ($this->request->isPost) {
-            $model->staus_id = Status::getStausId($status);
+            $model->status_id = Status::getStausId($status);
 
             if ($model->save()) {
                 Yii::$app->session->setFlash('success', 'Статус заявки успешно зменен.');
