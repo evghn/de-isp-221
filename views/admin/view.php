@@ -22,11 +22,11 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
         <?= Html::a('Назад', ['index'], ['class' => 'btn btn-outline-info']) ?>
 
-        <?= $model->status_id === Status::getStausId('new')
+        <?= $model->status_id === Status::getStatusId('new')
             ? Html::a('Идет обучение', ['change-status', 'id' => $model->id, 'status' => 'study'], ['class' => 'btn btn-outline-primary', 'data-method' => 'post', 'data-pjax' => 0])
             : ''
         ?>
-        <?= $model->status_id === Status::getStausId('study')
+        <?= $model->status_id === Status::getStatusId('study')
             ? Html::a('Обучение завершено', ['change-status', 'id' => $model->id, 'status' => 'final'], ['class' => 'btn btn-outline-success', 'data-method' => 'post', 'data-pjax' => 0])
             : ''
         ?>
@@ -61,7 +61,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'attribute' => 'status_id',
-                'value' => Status::getStausTitle($model->status_id),
+                'value' => Status::getStatusTitle($model->status_id),
             ],
         ],
     ]) ?>

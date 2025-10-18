@@ -39,7 +39,7 @@ class Application extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'course_id', 'date_start', 'pay_type_id', 'status_id', 'date_start', 'time_start', 'master_id'], 'required'],
+            [['user_id', 'course_id', 'date_start', 'pay_type_id', 'status_id', 'date_start', 'time_start'], 'required'],
             [['user_id', 'course_id', 'pay_type_id', 'status_id'], 'integer'],
             [['created_at', 'date_start', 'time_start'], 'safe'],
             [['status_id'], 'exist', 'skipOnError' => true, 'targetClass' => Status::class, 'targetAttribute' => ['status_id' => 'id']],
@@ -81,7 +81,7 @@ class Application extends \yii\db\ActiveRecord
                 ->where(['master_id' => $this->master_id])
                 ->andWhere(['date_start' => $this->date_start])
                 ->andWhere(['time_start' =>  $this->time_start . ":00"])
-                ->andWhere(['<>', 'status_id', Status::getStausId('final')])
+                ->andWhere(['<>', 'status_id', Status::getStatusId('final')])
                 ->count();
 
             if ($result) {
@@ -143,5 +143,15 @@ class Application extends \yii\db\ActiveRecord
     public function getMaster()
     {
         return $this->hasOne(Master::class, ['id' => 'master_id']);
+    }
+
+    /**
+     * Gets query for [[CancelApplications]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCancelApplication()
+    {
+        return $this->hasOne(CancelApplication::class, ['application_id' => 'id']);
     }
 }

@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use app\models\Application;
 use app\models\AdminSearch;
+use app\models\CancelApplication;
 use app\models\Status;
 use Yii;
 use yii\web\Controller;
@@ -78,6 +79,35 @@ class AdminController extends Controller
     }
 
 
+    public function actionCancel($id)
+    {
+        $model = new CancelApplication();
+        $application = $this->findModel($id);
+
+        if ($model->load($this->request->post())) {
+            $model->application_id = $id;
+            if ($model->save()) {
+                $application->status_id = Status::getStatusId('cancel');
+                if ($application->save()) {
+                    Yii::$app->session->setFlash('warning', 'Завяка отменена.');
+                    return $this->redirect(['view', 'id' => $id]);
+                } else {
+                    Yii::debug($application->errors);
+                    $model->delete();
+                }
+            } else {
+                Yii::debug($model->errors);
+            }
+        }
+
+
+        return $this->render('cancel', [
+            'model' => $model,
+            'application' => $application,
+        ]);
+    }
+
+
 
     /**
      * Updates an existing Application model.
@@ -91,7 +121,7 @@ class AdminController extends Controller
         $model = $this->findModel($id);
 
         if ($this->request->isPost) {
-            $model->status_id = Status::getStausId($status);
+            $model->status_id = Status::getStatusId($status);
 
             if ($model->save()) {
                 Yii::$app->session->setFlash('success', 'Статус заявки успешно зменен.');
@@ -100,19 +130,6 @@ class AdminController extends Controller
         }
     }
 
-    /**
-     * Deletes an existing Application model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param int $id № заявки
-     * @return \yii\web\Response
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    public function actionDelete($id)
-    {
-        $this->findModel($id)->delete();
-
-        return $this->redirect(['index']);
-    }
 
     /**
      * Finds the Application model based on its primary key value.
