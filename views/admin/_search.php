@@ -1,5 +1,8 @@
 <?php
 
+use app\models\Course;
+use app\models\PayType;
+use app\models\Status;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -14,27 +17,24 @@ use yii\widgets\ActiveForm;
         'action' => ['index'],
         'method' => 'get',
         'options' => [
-            'data-pjax' => 1
+            'data-pjax' => 1,
+            'class' => 'd-flex gap-1'
         ],
     ]); ?>
 
-    <?= $form->field($model, 'id') ?>
+    <div class="col-3">
+        <?= $form->field($model, 'course_id')->dropDownList(Course::getCourses(), ['prompt' => "Онлайн курс"])->label(false) ?>
+    </div>
+    <div class="col-3">
+        <?= $form->field($model, 'pay_type_id')->dropDownList(PayType::getPayTypes(), ['prompt' => "Тип оплаты"])->label(false)  ?>
+    </div>
+    <div class="col-3">
+        <?= $form->field($model, 'staus_id')->dropDownList(Status::getStatuses(), ['prompt' => "Статус заявки"])->label(false) ?>
+    </div>
 
-    <?= $form->field($model, 'user_id') ?>
-
-    <?= $form->field($model, 'created_at') ?>
-
-    <?= $form->field($model, 'course_id') ?>
-
-    <?= $form->field($model, 'date_start') ?>
-
-    <?php // echo $form->field($model, 'pay_type_id') ?>
-
-    <?php // echo $form->field($model, 'staus_id') ?>
-
-    <div class="form-group">
-        <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
-        <?= Html::resetButton('Reset', ['class' => 'btn btn-outline-secondary']) ?>
+    <div class="form-group d-flex gap-1">
+        <?= Html::submitButton('Найти', ['class' => 'btn btn-outline-primary']) ?>
+        <?= Html::a('Сброс', '/admin', ['class' => 'btn btn-outline-secondary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
