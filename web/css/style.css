@@ -52,3 +52,36 @@
     box-shadow: 0 0 10px green;
   }
 }
+
+.status-study {
+  background-color: rgb(235, 218, 250);
+}
+
+.logo {
+  width: 40px;
+  border-radius: 50%;
+}
+
+/* .carousel-item img {
+  transition: opacity 2s ease;
+} */
+
+.icon-footer {
+  width: 25px;
+}
+
+.img-ca {
+  filter: grayscale(100%);
+}
+
+.block-ca {
+  transition: 1s;
+}
+
+.block-ca:hover {
+  transform: scale(1.2);
+}
+
+.block-ca:hover .img-ca {
+  filter: grayscale(0%);
+}

@@ -28,15 +28,15 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
     <?php $this->head() ?>
 </head>
 
-<body class="d-flex flex-column h-100">
+<body class="d-flex flex-column h-100" style="background-color:rgb(253, 244, 254);">
     <?php $this->beginBody() ?>
 
     <header id="header">
         <?php
         NavBar::begin([
-            'brandLabel' => Yii::$app->name,
+            'brandLabel' => Html::img("/img/logo.png", ["class" => "logo", "alt" => "logo gap-2 rounded-circle"]) . " Корочки.есть",
             'brandUrl' => Yii::$app->homeUrl,
-            'options' => ['class' => 'navbar-expand-md navbar-dark bg-dark fixed-top']
+            'options' => ['class' => 'navbar-expand-md navbar-dark fixed-top', "style" => "background-color: rgba(100, 20, 113, 1);"]
         ]);
         echo Nav::widget([
             'options' => ['class' => 'navbar-nav'],
@@ -79,11 +79,17 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
         </div>
     </main>
 
-    <footer id="footer" class="mt-auto py-3 bg-light">
+    <footer id="footer" class="mt-auto py-3 " style="background-color: rgba(94, 60, 99, 1);">
         <div class="container">
             <div class="row text-muted">
-                <div class="col-md-6 text-center text-md-start">&copy; My Company <?= date('Y') ?></div>
-                <div class="col-md-6 text-center text-md-end"><?= Yii::powered() ?></div>
+                <div class="col-md-6 text-center text-md-start text-light">&copy; Портал «Корочки.есть» <?= date('Y') ?></div>
+                <div class="col-md-6 text-center text-md-end">
+                    <div class="d-flex gap-3 justify-content-center justify-content-md-end mt-2">
+                        <img src="/img/icon1.png" alt="vk" class="icon-footer d-block">
+                        <img src="/img/icon2.png" alt="telegram" class="icon-footer d-block">
+                        <img src="/img/icon3.png" alt="ok" class="icon-footer d-block">
+                    </div>
+                </div>
             </div>
         </div>
     </footer>

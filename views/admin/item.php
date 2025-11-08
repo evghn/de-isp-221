@@ -5,6 +5,20 @@ use app\models\PayType;
 use app\models\Status;
 use yii\bootstrap5\Html;
 
+switch (Status::getStatusAlias($model->status_id)) {
+    case "new":
+        $color_status = "bg-success-subtle";
+        break;
+    case "study":
+        $color_status = "status-study";
+        break;
+    case "final":
+        $color_status = "bg-primary-subtle";
+        break;
+    case "cancel":
+        $color_status = "bg-warning-subtle";
+        break;
+}
 ?>
 <div class="card my-3">
     <h5 class="card-header"><?= "Заявка №" . $model->id . ' от ' . Yii::$app->formatter->asDatetime($model->created_at, 'php:d.m.Y H:i:s') ?></h5>
@@ -47,16 +61,16 @@ use yii\bootstrap5\Html;
             </div>
         </div>
 
-        <div class="d-flex align-items-start gap-2">
+        <div class="d-flex align-items-baseline gap-2">
             <div class="text-secondary fs-5">
                 Статус:
             </div>
-            <div class="fs-5">
+            <div class="fs-5 <?= $color_status ?> px-3 py-1 rounded-2">
                 <?= Status::getStatusTitle($model->status_id) ?>
             </div>
         </div>
 
-        <div class="d-flex justify-content-end gap-3">
+        <div class="d-flex justify-content-end mt-4 mt-md-2 gap-3">
 
             <?= $model->status_id === Status::getStatusId('new')
                 ? Html::a('Отменить заявку', ['cancel', 'id' => $model->id], ['class' => 'btn btn-outline-warning', 'data-pjax' => 0])

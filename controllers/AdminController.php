@@ -10,6 +10,7 @@ use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\VarDumper;
 
 /**
  * AdminController implements the CRUD actions for Application model.
@@ -123,9 +124,12 @@ class AdminController extends Controller
         if ($this->request->isPost) {
             $model->status_id = Status::getStatusId($status);
 
-            if ($model->save()) {
+            if ($model->save(false)) {
                 Yii::$app->session->setFlash('success', 'Статус заявки успешно зменен.');
                 return $this->redirect(['index']);
+            } else {
+                VarDumper::dump($model->errors, 10, true);
+                die;
             }
         }
     }

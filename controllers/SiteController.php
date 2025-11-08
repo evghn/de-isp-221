@@ -111,17 +111,19 @@ class SiteController extends Controller
             if ($model->validate()) {
                 $model->auth_key = Yii::$app->security->generateRandomString();
                 $model->password = Yii::$app->security->generatePasswordHash($model->password);
-                if ($model->save()) {
+                if ($model->save(false)) {
                     // VarDumper::dump($model->attributes, 10, true);
                     // die;
                     Yii::$app->user->login($model, 24 * 3600);
                     Yii::$app->session->setFlash('success', "Пользователь успешно зарегистрирован");
                     Yii::$app->session->setFlash('info', "Пользователь успешно авторизован");
                     return $this->goHome();
+                } else {
+                    VarDumper::dump($model->attributes, 10, true);
+                    VarDumper::dump($model->password_repeat, 10, true);
+                    VarDumper::dump($model->errors, 10, true);
+                    die;
                 }
-            } else {
-                VarDumper::dump($model->errors, 10, true);
-                die;
             }
         }
         return $this->render('register', ['model' => $model,]);

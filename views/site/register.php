@@ -7,6 +7,8 @@ use yii\web\JqueryAsset;
 /** @var yii\web\View $this */
 /** @var app\models\User $model */
 /** @var ActiveForm $form */
+
+$disabled = $model->rule ? "" : "disabled";
 ?>
 <div class="site-register">
     <h3>Регистрация пользователя</h3>
@@ -27,9 +29,9 @@ use yii\web\JqueryAsset;
     <?= $form->field($model, 'rule')->checkbox() ?>
 
     <div class="form-group">
-        <div class="d-flex justify-content-between">
-            <?= Html::a('Авторизация', ['login'], ['class' => 'btn btn-outline-info']) ?>
-            <?= Html::submitButton('Создать пользователя', ['class' => 'btn btn-outline-primary disabled btn-register']) ?>
+        <div class="d-flex justify-content-between align-items-end">
+            <?= Html::a('Авторизация', ['login'], ['class' => '']) ?>
+            <?= Html::submitButton('Создать пользователя', ['class' => "btn btn-outline-primary $disabled  btn-register"]) ?>
         </div>
     </div>
     <?php ActiveForm::end(); ?>

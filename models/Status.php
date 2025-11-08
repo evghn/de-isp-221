@@ -75,6 +75,11 @@ class Status extends \yii\db\ActiveRecord
         return static::findOne($id)->title;
     }
 
+    public static function getStatusAlias(int $id): string
+    {
+        return static::findOne($id)->alias;
+    }
+
 
     public static function getStatuses()
     {
